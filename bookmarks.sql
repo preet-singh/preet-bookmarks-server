@@ -19,5 +19,5 @@ values
     ('JS tutorial', 'www.w3schools.com', 'JS education bookmark', 5)
     ('Fake news', 'www.trump.com', 'alt news bookmark', 0)
     ('Movie rating', 'www.imdb.com', 'movie rating bookmark', 5)
-    ('Search engine', 'www.lycos.com', 'failed engine bookmark', 1)
+    ('Search engine', 'www.lycos.com', 'failed engine bookmark', 1);
     
