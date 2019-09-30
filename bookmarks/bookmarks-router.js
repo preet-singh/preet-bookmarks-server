@@ -73,7 +73,7 @@ bookmarkRouter //working for GET and DELETE - returns bookmark based on id and d
     })
     .delete((req, res) => {
         const { id } = req.params;
-        const bookmarkIndex = bookmarks.findIndex(b => b.id !== id );
+        const bookmarkIndex = bookmarks.findIndex(b => b.id === id );
         if(bookmarkIndex === -1){
             logger.error(`Bookmark with id ${id} not found`)
             return res
