@@ -72,3 +72,7 @@
 {"message":"Unauthorized request to path: /bookmarks","level":"error"}
 {"message":"Unauthorized request to path: /bookmarks/332e0e","level":"error"}
 {"message":"Bookmark with id 332e0e not found","level":"error"}
+{"message":"Unauthorized request to path: /","level":"error"}
+{"message":"Bookmark with id 66 not found","level":"error"}
+{"message":"Bookmark with id 6 not found","level":"error"}
+{"message":"Bookmark with id 689 not found","level":"error"}

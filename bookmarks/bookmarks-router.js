@@ -2,6 +2,7 @@ const express = require('express');
 const logger = require('../src/logger');
 const { bookmarks } = require('../src/bookmark-store');
 const uuid = require('uuid/v4');
+const BookmarksService = require('../src/bookmarks-service');
 
 const bookmarkRouter = express.Router();
 const bodyParser = express.json();
@@ -9,7 +10,12 @@ const bodyParser = express.json();
 bookmarkRouter //working for GET and POST - returns all bookmarks and posts with a unique id 
     .route('/bookmarks')
     .get((req, res) => {
-        res.json(bookmarks)
+        const knexInstance = req.app.get('db');
+        BookmarksService.getAllBookmarks(knexInstance)
+            .then(bookmarks => {
+                res.json(bookmarks)
+            })
+        
     })
     .post(bodyParser, (req, res) => {
         const { title, url, description, rating } = req.body;
@@ -59,17 +65,22 @@ bookmarkRouter //working for GET and POST - returns all bookmarks and posts with
 
 bookmarkRouter //working for GET and DELETE - returns bookmark based on id and deletes them 
     .route('/bookmarks/:id')
-    .get((req, res) => {
+    .get((req, res, next) => {
+        const knexInstance = req.app.get('db');
         const { id } = req.params;
-        const bookmark = bookmarks.find(singleBookmark => singleBookmark.id == id);
+        BookmarksService.getById(knexInstance, id)
+            .then(bookmark => {
+                if(!bookmark){
+                    logger.error(`Bookmark with id ${id} not found`) 
+                    return res
+                        .status(404)
+                        .send(`Bookmark not found`);
+                }
+                res.status(200).json(bookmark);
+            })
+            .catch(next);
+
         
-        if(!bookmark){
-            logger.error(`Bookmark with id ${id} not found`) 
-            return res
-                .status(404)
-                .send(`Bookmark not found`);
-        }
-        res.status(200).json(bookmark);
     })
     .delete((req, res) => {
         const { id } = req.params;
