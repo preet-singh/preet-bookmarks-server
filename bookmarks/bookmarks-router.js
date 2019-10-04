@@ -70,14 +70,14 @@ bookmarkRouter //working for GET and DELETE - returns bookmark based on id and d
         const knexInstance = req.app.get('db');
         const { id } = req.params;
         BookmarksService.getById(knexInstance, id)
-            .then(bookmark => {
-                if(!bookmark){
+            .then(boookmark => {
+                if(!boookmark){
                     logger.error(`Bookmark with id ${id} not found`) 
                     return res
                         .status(404)
-                        .send(`Bookmark not found`);
+                        .json({ error: { message: `Bookmark doesn't exist` } });
                 }
-                res.status(200).json(bookmark);
+                res.status(200).json(boookmark);
             })
             .catch(next);
 

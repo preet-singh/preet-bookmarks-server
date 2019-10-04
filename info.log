@@ -79,3 +79,12 @@
 {"message":"Bookmark with id 689 not found","level":"error"}
 {"message":"Bookmark with id 2323 not found","level":"error"}
 {"message":"Bookmark with id 2323 not found","level":"error"}
+{"message":"Bookmark with id 2323 not found","level":"error"}
+{"message":"Bookmark with id 2323 not found","level":"error"}
+{"message":"Bookmark with id 2323 not found","level":"error"}
+{"message":"Undefined binding(s) detected when compiling FIRST. Undefined column(s): [id] query: select * from \"bookmarks\" where \"id\" = ? limit ?","level":"error"}
+{"message":"Undefined binding(s) detected when compiling FIRST. Undefined column(s): [id] query: select * from \"bookmarks\" where \"id\" = ? limit ?","level":"error"}
+{"message":"Bookmark with id 2323 not found","level":"error"}
+{"message":"Bookmark with id 2323 not found","level":"error"}
+{"message":"Bookmark with id 2323 not found","level":"error"}
+{"message":"Bookmark with id 2323 not found","level":"error"}

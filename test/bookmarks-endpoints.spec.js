@@ -35,9 +35,9 @@ describe('Bookmarks Endpoints', () => {
                     .into('bookmarks')
                     .insert(testBookmarks);
             });
-            it('responds with 200 and all of the articles', () => {
+            it('responds with 200 and all of the bookmarks', () => {
                 return supertest(app)
-                    .get('/articles')
+                    .get('/bookmarks')
                     .expect(200, testBookmarks);
             });
         });
@@ -53,18 +53,16 @@ describe('Bookmarks Endpoints', () => {
         });
         context('Given there are bookmarks in the database', () => {
             const testBookmarks = makeBookmarksArray();
-      
             beforeEach('insert bookmarks', () => {
                 return db
                     .into('bookmarks')
                     .insert(testBookmarks);
             });
-      
             it('responds with 200 and the specified bookmark', () => {
               const bookmarkId = 2;
               const expectedBookmark = testBookmarks[bookmarkId - 1];
                 return supertest(app)
-                    .get(`/articles/${bookmarkId}`)
+                    .get(`/bookmarks/${bookmarkId}`)
                     .expect(200, expectedBookmark);
             });
         });
