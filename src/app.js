@@ -3,12 +3,12 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
-
 const { NODE_ENV } = require('./config');
+const bookmarkRouter = require('../bookmarks/bookmarks-router');
 
 const errorHandler = require('./error-handler');
 //const validateBearerToken = require('./validate-bearer-token');
-const bookmarkRouter = require('../bookmarks/bookmarks-router');
+
 
 const app = express();
 

@@ -1,20 +1,21 @@
 const express = require('express');
 const logger = require('../src/logger');
-const { bookmarks } = require('../src/bookmark-store');
-const uuid = require('uuid/v4');
-const BookmarksService = require('../src/bookmarks-service');
+//const { bookmarks } = require('../src/bookmark-store');
+//const uuid = require('uuid/v4');
+const BookmarksService = require('./bookmarks-service');
 
 const bookmarkRouter = express.Router();
 const bodyParser = express.json();
 
 bookmarkRouter //working for GET and POST - returns all bookmarks and posts with a unique id 
     .route('/bookmarks')
-    .get((req, res) => {
+    .get((req, res, next) => {
         const knexInstance = req.app.get('db');
         BookmarksService.getAllBookmarks(knexInstance)
             .then(bookmarks => {
                 res.json(bookmarks)
             })
+            .catch(next)
         
     })
     .post(bodyParser, (req, res) => {
@@ -101,3 +102,4 @@ bookmarkRouter //working for GET and DELETE - returns bookmark based on id and d
 
 
 module.exports = bookmarkRouter;
+

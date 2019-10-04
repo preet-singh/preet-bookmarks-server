@@ -1,17 +1,17 @@
 'use strict';
 function makeBookmarksArray(){
-    const uuid = require('uuid/v4');
+    //const uuid = require('uuid/v4');
     return [
         {
-            id: uuid(),
-            title: 'News site',
+            id: 1,
+            title: 'News44 site',
             url: 'www.bbc.com',
             description: 'news bookmark',
             rating: 4
         },
 
         {
-            id: uuid(),
+            id: 2,
             title: 'Sports site',
             url: 'www.espn.com',
             description: 'sports bookmark',
@@ -19,7 +19,7 @@ function makeBookmarksArray(){
         },
 
         {
-            id: uuid(),
+            id: 3,
             title: 'Gaming site',
             url: 'www.miniclip.com',
             description: 'gaming bookmark',
