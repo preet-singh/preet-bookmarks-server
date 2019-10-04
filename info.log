@@ -88,3 +88,10 @@
 {"message":"Bookmark with id 2323 not found","level":"error"}
 {"message":"Bookmark with id 2323 not found","level":"error"}
 {"message":"Bookmark with id 2323 not found","level":"error"}
+{"message":"bookmarks is not defined","level":"error"}
+{"message":"Bookmark with id 2323 not found","level":"error"}
+{"message":"next is not defined","level":"error"}
+{"message":"bookmarks is not defined","level":"error"}
+{"message":"delete from \"bookmarks_\" where \"id\" = $1 - relation \"bookmarks_\" does not exist","level":"error"}
+{"message":"delete from \"bookmarks_\" where \"id\" = $1 - relation \"bookmarks_\" does not exist","level":"error"}
+{"message":"Bookmark with id 2 not found","level":"error"}
