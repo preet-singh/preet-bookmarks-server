@@ -93,7 +93,7 @@ describe('Bookmarks Endpoints', () => {
           //this.retries(3);
           const newBookmark = {
             title: 'Test new bkmrk',
-            url: 'www.testbkmr.com',
+            url: 'https://www.testbkmr.com',
             description: 'Test new bkmrk content...',
             rating: 4
           };
@@ -114,11 +114,12 @@ describe('Bookmarks Endpoints', () => {
                 .expect(postRes.body) 
             );
         });
+
         const requiredFields = ['title', 'url', 'rating'];
         requiredFields.forEach(field => {
           const newBookmark = {
             title: 'Test new bkmrk',
-            url: 'www.testbkmr.com',
+            url: 'https://www.testbkmr.com',
             rating: 4
           };
           it(`responds with 400 and an error message when the '${field}' is missing`, () => {
@@ -139,7 +140,7 @@ describe('Bookmarks Endpoints', () => {
           it(`responds with 404`, () => {
             const bookmarkId = 123456;
             return supertest(app)
-              .delete(`/bookmark/${bookmarkId}`)
+              .delete(`/bookmarks/${bookmarkId}`)
               .expect(404, { error: { message: `Bookmark doesn't exist` } });
           });
         });  

@@ -95,3 +95,16 @@
 {"message":"delete from \"bookmarks_\" where \"id\" = $1 - relation \"bookmarks_\" does not exist","level":"error"}
 {"message":"delete from \"bookmarks_\" where \"id\" = $1 - relation \"bookmarks_\" does not exist","level":"error"}
 {"message":"Bookmark with id 2 not found","level":"error"}
+{"message":"Invalid url 'www.testbkmr.com' supplied","level":"error"}
+{"message":"Bookmark with id 2 not found","level":"error"}
+{"message":"Invalid url 'www.testbkmr.com' supplied","level":"error"}
+{"message":"Bookmark with id 2 not found","level":"error"}
+{"message":"Bookmark with id 2 not found","level":"error"}
+{"message":"Bookmark with id 2 not found","level":"error"}
+{"message":"Bookmark with id 2 not found","level":"error"}
+{"message":"Bookmark with id 2 deleted","level":"error"}
+{"message":"Bookmark with id 2 deleted","level":"error"}
+{"message":"Bookmark with id 2 deleted","level":"error"}
+{"message":"Bookmark with id 2 deleted","level":"error"}
+{"message":"Bookmark with id 2 deleted","level":"error"}
+{"message":"Bookmark with id 2 deleted","level":"error"}

@@ -1,6 +1,7 @@
 const express = require('express');
 const xss = require('xss');
 const logger = require('../src/logger');
+const { isWebUri } = require('valid-url');
 //const uuid = require('uuid/v4');
 const BookmarksService = require('./bookmarks-service');
 
@@ -27,8 +28,8 @@ bookmarkRouter //working for GET and POST - returns all bookmarks and posts with
         
     })
     .post(bodyParser, (req, res, next) => {
-        const { title, url, description, rating } = req.body;
-        const newBookmark = { title, url, description, rating };
+        const { title, url, rating, description } = req.body;
+        const newBookmark = { title, url, rating, description };
 
         for (const [key, value] of Object.entries(newBookmark)){
             if (value == null){
@@ -39,10 +40,16 @@ bookmarkRouter //working for GET and POST - returns all bookmarks and posts with
         }
         if(!Number.isInteger(rating) || rating < 0 || rating > 5){
             logger.error('Rating between 0 and 5 required')
-            return res  
-                    .status(404)
-                    .send('Invalid data')
+            return res.status(400).send({
+                error: { message: `'rating' must be a number between 0 and 5`}
+            })
         }
+        if (!isWebUri(url)) {
+            logger.error(`Invalid url '${url}' supplied`);
+            return res.status(400).send({
+              error: { message: `'url' must be a valid URL` }
+            });
+          }
 
         BookmarksService.insertBookmark(
             req.app.get('db'),
@@ -86,10 +93,10 @@ bookmarkRouter //working for GET and DELETE - returns bookmark based on id and d
             id
         )
             .then(() => {
-                logger.error(`Bookmark with id ${id} not found`)
+                logger.error(`Bookmark with id ${id} deleted`)
                 return res
                         .status(204)
-                        .send('Not found')
+                        .end()
             })
             .catch(next)
     });
