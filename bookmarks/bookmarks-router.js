@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const xss = require('xss');
 const logger = require('../src/logger');
@@ -58,7 +59,7 @@ bookmarkRouter //working for GET and POST - returns all bookmarks and posts with
             .then(bookmark => {
                 res
                     .status(201)
-                    .location(`/bookmarks/${bookmark.id}`)
+                    .location(path.posix.join(req.originalUrl, `/${bookmark.id}`))
                     .json(serializeBookmark(bookmark))
             })
             .catch(next);
@@ -99,7 +100,27 @@ bookmarkRouter //working for GET and DELETE - returns bookmark based on id and d
                         .end()
             })
             .catch(next)
-    });
+    })
+    .patch(bodyParser, (req, res, next) => {
+        const { title, url, description, rating } = req.body
+        const bookmarkToUpdate = { title, url, description, rating };
+        const numberOfValues = Object.values(bookmarkToUpdate).filter(Boolean).length;
+        if(numberOfValues === 0){
+          return res.status(400).json({
+            error: { message: `Request body must contain either 'title', 'url', 'description' or 'rating'`}
+          });
+        }
+    
+        BookmarksService.updateBookmark(
+          req.app.get('db'),
+          req.params.id,
+          bookmarkToUpdate
+        )
+          .then(numRowsAffected => {
+            res.status(204).end();
+          })
+          .catch(next);
+      });
     
     // const bookmarkIndex = bookmarks.findIndex(b => b.id === id );
     // if(bookmarkIndex === -1){
