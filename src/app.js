@@ -4,14 +4,14 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
+//const validateBearerToken = require('./validate-bearer-token');
+const errorHandler = require('./error-handler');
 const bookmarkRouter = require('../bookmarks/bookmarks-router');
 
-const errorHandler = require('./error-handler');
-//const validateBearerToken = require('./validate-bearer-token');
-
-
+//initialization
 const app = express();
 
+//middleware
 const morganOption = (NODE_ENV === 'production') ? 'tiny' : 'common';
 app.use(morgan(morganOption));
 app.use(cors());

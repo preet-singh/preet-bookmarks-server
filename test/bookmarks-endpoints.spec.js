@@ -16,6 +16,52 @@ describe('Bookmarks Endpoints', () => {
     after('disconnect from db', () => db.destroy());
     before('clean the table', () => db('bookmarks').truncate());
     afterEach('cleanup', () => db('bookmarks').truncate());
+
+    describe(`Unauthorized requests`, () => {
+      const testBookmarks = makeBookmarksArray()
+  
+      beforeEach('insert bookmarks', () => {
+        return db
+          .into('bookmarks')
+          .insert(testBookmarks)
+      })
+  
+      it(`responds with 401 Unauthorized for GET /api/bookmarks`, () => {
+        return supertest(app)
+          .get('/api/bookmarks')
+          .expect(401, { error: 'Unauthorized request' })
+      })
+  
+      it(`responds with 401 Unauthorized for POST /api/bookmarks`, () => {
+        return supertest(app)
+          .post('/api/bookmarks')
+          .send({ title: 'test-title', url: 'http://some.thing.com', rating: 1 })
+          .expect(401, { error: 'Unauthorized request' })
+      })
+  
+      it(`responds with 401 Unauthorized for GET /api/bookmarks/:id`, () => {
+        const secondBookmark = testBookmarks[1]
+        return supertest(app)
+          .get(`/api/bookmarks/${secondBookmark.id}`)
+          .expect(401, { error: 'Unauthorized request' })
+      })
+  
+      it(`responds with 401 Unauthorized for DELETE /api/bookmarks/:id`, () => {
+        const aBookmark = testBookmarks[1]
+        return supertest(app)
+          .delete(`/api/bookmarks/${aBookmark.id}`)
+          .expect(401, { error: 'Unauthorized request' })
+      })
+  
+      it(`responds with 401 Unauthorized for PATCH /api/bookmarks/:id`, () => {
+        const aBookmark = testBookmarks[1]
+        return supertest(app)
+          .patch(`/api/bookmarks/${aBookmark.id}`)
+          .send({ title: 'updated-title' })
+          .expect(401, { error: 'Unauthorized request' })
+      })
+    })
+  
     //////////////////////////////////////////////////////////////////
     describe(`GET /api/bookmarks`, () => {
         context('Given no bookmarks in database', () => {
